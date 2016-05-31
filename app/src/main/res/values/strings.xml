@@ -3,4 +3,34 @@
     <string name="action_settings">settings</string>
     <string name="action_shop">shop</string>
     <string name="order_activity">order activity</string>
+    <string name="tv_top">Top Fragment</string>
+
+    <string-array name="lv_titles">
+        <item>Home</item>
+        <item>Pizzas</item>
+        <item>Pasta</item>
+        <item>Stores</item>
+    </string-array>
+
+    <string-array name="pizzas">
+        <item>Pollo</item>
+        <item>Fromagghi</item>
+        <item>Stagione</item>
+    </string-array>
+
+    <string-array name="pasta">
+        <item>Lasagna</item>
+        <item>Carbonara</item>
+        <item>Macaroni</item>
+    </string-array>
+
+    <string-array name="stores">
+        <item>London</item>
+        <item>Paris</item>
+        <item>New York</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

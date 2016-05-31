@@ -1,18 +1,28 @@
 package com.hfad.restoapp;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
 public class MainActivity extends Activity {
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //SET LV LISTENER
+        listView = (ListView) findViewById(R.id.lv_drawer);
+        listView.setOnItemClickListener(new ListViewListener());
     }
 
     // INFLATE AB ITEMS WHEN MENU GETS CREATED
@@ -43,5 +53,35 @@ public class MainActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //CREATE LV LISTENER
+    private class ListViewListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            itemSelected(position);
+        }
+    }
+
+    private void itemSelected(int position) {
+        Fragment fragment;
+        switch (position) {
+            case 1:
+                fragment = new PizzaFragment();
+                break;
+            case 2:
+                fragment = new PastaFragment();
+                break;
+            case 3:
+                fragment = new StoreFragment();
+                break;
+            default:
+                fragment = new TopFragment();
+        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.commit();
     }
 }

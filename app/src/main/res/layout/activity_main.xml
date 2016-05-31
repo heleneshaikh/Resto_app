@@ -24,5 +24,4 @@
         android:background="#C4C4C4"
         android:entries="@array/lv_titles"/>
 
-
 </android.support.v4.widget.DrawerLayout>

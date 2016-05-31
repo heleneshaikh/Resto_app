@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -45,7 +46,14 @@ public class MainActivity extends Activity {
                 invalidateOptionsMenu(); //RECREATE THE AB
             }
         };
+        drawerLayout.addDrawerListener(drawerToggle);
+
+        //ENABLE DRAWER TO OPEN & CLOSE PART 1, THEN onOptionsItemSelected
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
 
     //HIDE ACTION_SHOP WHEN DRAWER IS OPEN
     @Override
@@ -73,7 +81,14 @@ public class MainActivity extends Activity {
     // LISTENER FOR CLICKING ON AB ITEM
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //ENABLE DRAWER TO OPEN & CLOSE PART 2, WITH TOGGLE AS MENTIONED BEFORE. MAKE IT CLICKABLE
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        //SET UP BUTTON TO GO BACK IN HIERARCHY
         getActionBar().setHomeButtonEnabled(true);
+
+        //LISTENER
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
@@ -121,6 +136,19 @@ public class MainActivity extends Activity {
 
         //CLOSE DRAWER WHEN ITEM HAS BEEN CLICKED
         drawerLayout.closeDrawer(listView);
+    }
 
+    //SYNC TOGGLE STATE WITH DRAWERLAYOUT STATE
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    //SO THAT ALL CONFIG CHANGES GET PASSED TO THE DRAWER TOGGLE
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 }

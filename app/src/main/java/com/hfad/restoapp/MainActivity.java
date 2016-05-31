@@ -58,9 +58,13 @@ public class MainActivity extends Activity {
     //HIDE ACTION_SHOP WHEN DRAWER IS OPEN
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.action_shop);
+        MenuItem shopItem = menu.findItem(R.id.action_shop);
+        MenuItem shareItem = menu.findItem(R.id.share_action_provider);
+        MenuItem settings = menu.findItem(R.id.action_settings);
         boolean isOpen = drawerLayout.isDrawerOpen(listView);
-        menuItem.setVisible(!isOpen);
+        shopItem.setVisible(!isOpen);
+        shareItem.setVisible(!isOpen);
+        settings.setVisible(!isOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 

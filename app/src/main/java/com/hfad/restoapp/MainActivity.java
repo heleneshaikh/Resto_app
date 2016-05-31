@@ -14,6 +14,7 @@ import android.widget.ShareActionProvider;
 
 public class MainActivity extends Activity {
     private ListView listView;
+    private String [] titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,5 +84,10 @@ public class MainActivity extends Activity {
         transaction.addToBackStack(null);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
+
+        //SET AB TITLE
+        titles = getResources().getStringArray(R.array.lv_titles);
+        getActionBar().setTitle(titles[position]);
+
     }
 }

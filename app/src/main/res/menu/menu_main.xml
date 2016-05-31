@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--AB = SETTINGS -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="1"
+        android:showAsAction="always"/>
+
+    <!--AB = SHOP -->
+    <item android:id="@+id/action_shop"
+        android:title="@string/action_shop"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_add_shopping_cart_black_24dp"/>
+
+    <!-- AB = SHARE ACTION PROVIDER -->
+    <item android:id="@+id/share_action_provider"
+        android:title="share"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:actionProviderClass="android.widget.ShareActionProvider"/>
+
+</menu>

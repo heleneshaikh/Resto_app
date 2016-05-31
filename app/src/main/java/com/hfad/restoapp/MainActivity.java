@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.ShareActionProvider;
 public class MainActivity extends Activity {
     private ListView listView;
     private String [] titles;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,32 @@ public class MainActivity extends Activity {
         //SET LV LISTENER
         listView = (ListView) findViewById(R.id.lv_drawer);
         listView.setOnItemClickListener(new ListViewListener());
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        //CREATE TOGGLE: DRAWER LISTENER + OPEN/CLOSE
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); //RECREATE THE AB
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                invalidateOptionsMenu(); //RECREATE THE AB
+            }
+        };
+    }
+
+    //HIDE ACTION_SHOP WHEN DRAWER IS OPEN
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.action_shop);
+        boolean isOpen = drawerLayout.isDrawerOpen(listView);
+        menuItem.setVisible(!isOpen);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     // INFLATE AB ITEMS WHEN MENU GETS CREATED
@@ -88,6 +118,9 @@ public class MainActivity extends Activity {
         //SET AB TITLE
         titles = getResources().getStringArray(R.array.lv_titles);
         getActionBar().setTitle(titles[position]);
+
+        //CLOSE DRAWER WHEN ITEM HAS BEEN CLICKED
+        drawerLayout.closeDrawer(listView);
 
     }
 }
